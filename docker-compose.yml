@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"  # Map port 3000 on the host to port 3000 in the container
+    depends_on:
+      - backend  # Ensure the backend service starts before the frontend
+
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"  # Map port 5000 on the host to port 5000 in the container
+    environment:
+      - HOST=bssy6tybmvjez1trkh0r-mysql.services.clever-cloud.com
+      - DATABASE_NAME=bssy6tybmvjez1trkh0r
+      - USERNAME=u44ityxj1g39wuxz
+      - PASSWORD=ZooV66yDeaEGtgsOfCiO
+      - PORT=3306
+    volumes:
+      - ./backend:/app  # Mount backend source code for development
+      - /app/node_modules

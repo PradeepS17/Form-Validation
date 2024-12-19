@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"   # Map port 80 in the container (NGINX) to port 3000 on the host
+    depends_on:
+      - backend     # Ensure the backend service starts first
+
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000" # Map backend container port 5000 to host port 5000
+    volumes:
+      - ./backend:/app  # Mount backend source code for development
